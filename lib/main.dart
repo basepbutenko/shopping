@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shopping/product.dart';
+import 'package:shopping/shopping_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,15 +15,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -32,7 +25,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
-
   final String title;
 
   @override
@@ -40,6 +32,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late ShoppingList shoppingList;
+  TextEditingController controller = TextEditingController();
+
+  @override
+  void initState() {
+    shoppingList = ShoppingList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +48,33 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-
-
-      ),
-      
+          child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 200,
+                child: TextField(
+                  controller: controller,
+                ),
+              ),
+              TextButton(
+                  onPressed: () {
+                    shoppingList.add(Product(controller.text, "", 0));
+                    setState(() {});
+                  },
+                  child: Text("Add")),
+            ],
+          ),
+          Expanded(
+            child: ListView.builder(
+                itemCount: shoppingList.items.length,
+                itemBuilder: (BuildContext ctxt, int index) {
+                  return Text(shoppingList.items[index].name);
+                }),
+          )
+        ],
+      )),
     );
   }
 }
