@@ -8,6 +8,6 @@ class ShoppingList {
   }
 
   void delete(int index) {
-    this.items.remove(index);
+    this.items.removeAt(index);
   }
 }

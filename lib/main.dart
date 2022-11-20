@@ -70,8 +70,20 @@ class _MyHomePageState extends State<MyHomePage> {
             child: ListView.builder(
                 itemCount: shoppingList.items.length,
                 itemBuilder: (BuildContext ctxt, int index) {
-                  return Text(shoppingList.items[index].name);
+                  return Row(
+                    children: [
+                      Text(shoppingList.items[index].name),
+                      TextButton(
+                          onPressed: () {
+                            shoppingList.delete(index);
+                            setState(() {});
+                          },
+                          child: Text("Delete")),
+                    ],
+                  );
                 }),
+
+
           )
         ],
       )),
