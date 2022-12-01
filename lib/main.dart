@@ -33,7 +33,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late ShoppingList shoppingList;
-  TextEditingController controller = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
   @override
   void initState() {
@@ -52,15 +53,36 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           Row(
             children: [
-              Container(
-                width: 200,
-                child: TextField(
-                  controller: controller,
-                ),
+              Column(
+                children: [
+                  Container(
+                    width: 200,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        decoration:
+                            const InputDecoration.collapsed(hintText: 'name'),
+                        controller: nameController,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 200,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        decoration: const InputDecoration.collapsed(
+                            hintText: 'description'),
+                        controller: descriptionController,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               TextButton(
                   onPressed: () {
-                    shoppingList.add(Product(controller.text, "", 0));
+                    shoppingList.add(Product(
+                        nameController.text, descriptionController.text, 0));
                     setState(() {});
                   },
                   child: Text("Add")),
@@ -72,7 +94,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemBuilder: (BuildContext ctxt, int index) {
                   return Row(
                     children: [
-                      Text(shoppingList.items[index].name),
+                      Column(
+                        children: [
+                          Text(shoppingList.items[index].name),
+                          Text(shoppingList.items[index].description),
+                        ],
+                      ),
                       TextButton(
                           onPressed: () {
                             shoppingList.delete(index);
@@ -82,8 +109,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   );
                 }),
-
-
           )
         ],
       )),
