@@ -35,6 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late ShoppingList shoppingList;
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController countController = TextEditingController();
 
   @override
   void initState() {
@@ -77,12 +78,24 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
+                  Container(
+                    width: 200,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        decoration:
+                            const InputDecoration.collapsed(hintText: 'count'),
+                        controller: countController,
+                        keyboardType: TextInputType.number,
+                      ),
+                    ),
+                  ),
                 ],
               ),
               TextButton(
                   onPressed: () {
                     shoppingList.add(Product(
-                        nameController.text, descriptionController.text, 0));
+                        nameController.text, descriptionController.text,int.parse(countController.text)));
                     clearForm();
                     setState(() {});
                   },
@@ -105,6 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: [
                           Text(shoppingList.items[index].name),
                           Text(shoppingList.items[index].description),
+                          Text(shoppingList.items[index].count.toString()),
                         ],
                       ),
                       TextButton(
@@ -125,5 +139,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void clearForm() {
     nameController.clear();
     descriptionController.clear();
+    countController.clear();
   }
 }
