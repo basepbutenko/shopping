@@ -83,9 +83,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                     shoppingList.add(Product(
                         nameController.text, descriptionController.text, 0));
+                    clearForm();
                     setState(() {});
                   },
                   child: Text("Add")),
+              TextButton(
+                  onPressed: () {
+                    clearForm();
+                    setState(() {});
+                  },
+                  child: Text("Clear")),
             ],
           ),
           Expanded(
@@ -113,5 +120,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       )),
     );
+  }
+
+  void clearForm() {
+    nameController.clear();
+    descriptionController.clear();
   }
 }
