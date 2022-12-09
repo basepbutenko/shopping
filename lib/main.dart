@@ -40,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     shoppingList = ShoppingList();
+    shoppingList.readJson();
     super.initState();
   }
 
@@ -95,7 +96,9 @@ class _MyHomePageState extends State<MyHomePage> {
               TextButton(
                   onPressed: () {
                     shoppingList.add(Product(
-                        nameController.text, descriptionController.text,int.parse(countController.text)));
+                        nameController.text,
+                        descriptionController.text,
+                        int.parse(countController.text)));
                     clearForm();
                     setState(() {});
                   },
